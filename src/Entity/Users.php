@@ -3,14 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Users
  *
  * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="index_users_on_email", columns={"email"})})
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class Users
+class Users implements UserInterface
 {
     /**
      * @var int
@@ -56,6 +59,7 @@ class Users
      */
     private $passwordDigest;
 
+
     /**
      * @var string|null
      *
@@ -68,7 +72,7 @@ class Users
      *
      * @ORM\Column(name="admin", type="boolean", nullable=true)
      */
-    private $admin;
+    private $admin = '0';
 
     /**
      * @var string|null
@@ -105,12 +109,8 @@ class Users
      */
     private $resetSentAt;
 
-    /**
-     * @var json|null
-     *
-     * @ORM\Column(name="roles", type="json", nullable=true)
-     */
-    private $roles;
+
+    private $roles = [];
 
     public function getId(): ?int
     {
@@ -172,6 +172,7 @@ class Users
 
     public function setPasswordDigest(?string $passwordDigest): self
     {
+
         $this->passwordDigest = $passwordDigest;
 
         return $this;
@@ -261,17 +262,41 @@ class Users
         return $this;
     }
 
-    public function getRoles(): ?array
-    {
-        return $this->roles;
-    }
-
-    public function setRoles(?array $roles): self
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
 
-        return $this;
+        return $roles;
     }
 
 
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword()
+    {
+        return $this->passwordDigest;
+    }
+
+    public function getSalt()
+    {
+        return $this->passwordDigest;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

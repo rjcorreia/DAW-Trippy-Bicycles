@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
     <!-- Magnific Popup -->
-    <link rel="stylesheet" href="{{ asset('css/magnific-popup.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
     <!-- Fancybox -->
@@ -35,49 +35,101 @@
 </head>
 <body class="js">
 
-{#<!-- Preloader -->#}
-{#<div class="preloader">#}
-{#    <div class="preloader-inner">#}
-{#        <div class="preloader-icon">#}
-{#            <span></span>#}
-{#            <span></span>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-{#<!-- End Preloader -->#}
+{# <!-- Preloader --> #}
+{# <div class="preloader"> #}
+{# <div class="preloader-inner"> #}
+{# <div class="preloader-icon"> #}
+{# <span></span> #}
+{# <span></span> #}
+{# </div> #}
+{# </div> #}
+{# </div> #}
+{# <!-- End Preloader --> #}
 
 
 <!-- Header -->
 <header class="header shop">
     <!-- Header Inner -->
     <div class="header-inner">
-            <div class="cat-nav-head">
-                            <nav class="navbar navbar-expand-lg ">
-                                <div class="navbar-collapse">
-                                    <div class="nav-inner">
-                                        <ul class="nav main-menu menu navbar-nav">
-                                            <li class="active"><a href="#">Home</a></li>
-                                            <li><a href="#">Products</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="navbar-collapse">
-                                    <div class="nav-inner ml-auto">
-                                        <ul class="nav main-menu menu navbar-nav">
-                                            <li><a href="#">Login</a></li>
-                                            <li><a href="#">Register</a></li>
-                                            <li><a href="#">Cart</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </nav>
-                            <!--/ End Main Menu -->
+        <div class="cat-nav-head">
+            <nav class="navbar navbar-expand-lg ">
+                <div class="navbar-collapse">
+                    <div class="nav-inner">
+                        <ul class="nav main-menu menu navbar-nav">
+                            {% if app.request.get('_route') == info.menu0 %}
+                                <li class="active"><a href='{{ path(info.menu0) }}'> {{ info.menu0 }} </a></li>
+                            {% else %}
+                                <li><a href='{{ path(info.menu0) }}'> {{ info.menu0 }} </a></li>
+                            {% endif %}
+                            {% if app.request.get('_route') == 'Products' %}
+                                <li class="active"><a href='{{ path('Products') }}'> Products </a></li>
+                            {% else %}
+                                <li><a href='{{ path('Products') }}'> Products </a></li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="navbar-collapse">
+                    <div class="nav-inner nav-title">
+                        <ul class="nav main-menu menu navbar-nav">
+                            <li> <a>Trippy Bicycles</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="navbar-collapse">
+                    <div class="nav-inner ml-auto">
+                        <ul class="nav main-menu menu navbar-nav">
+                            {% if app.request.get('_route') == info.menu1 %}
+                                <li class="active"><a href='{{ path(info.menu1) }}'> {{ info.menu1 }} </a></li>
+                            {% else %}
+                                <li><a href='{{ path(info.menu1) }}'> {{ info.menu1 }} </a></li>
+                            {% endif %}
+                            {% if app.request.get('_route') == info.menu2 %}
+                                <li class="active"><a href='{{ path(info.menu2) }}'> {{ info.menu2 }} </a></li>
+                            {% else %}
+                                <li><a href='{{ path(info.menu2) }}'> {{ info.menu2 }} </a></li>
+                            {% endif %}
+                            {% if app.request.get('_route') == info.menu3 %}
+                                <li class="active"><a href='{{ path(info.menu3) }}'> {{ info.menu3 }} </a></li>
+                            {% else %}
+                                <li><a href='{{ path(info.menu3) }}'> {{ info.menu3 }} </a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!--/ End Main Menu -->
         </div>
     </div>
     <!--/ End Header Inner -->
 </header>
 <!--/ End Header -->
 
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success w-50 alert-dismissible mt-3 show mx-auto text-center" role="alert">
+        <h4>{{ message }}</h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endfor %}
+{% for message in app.flashes('standard') %}
+    <div class="alert alert-info w-50 alert-dismissible mt-3 show mx-auto text-center" role="alert">
+        <h4>{{ message }} </h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endfor %}
+{% for message in app.flashes('error') %}
+    <div class="alert alert-danger w-50 alert-dismissible mt-3 show mx-auto text-center" role="alert">
+        <h4>{{ message }} </h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endfor %}
 
 
 {% block body %}{% endblock %}
@@ -85,17 +137,18 @@
 <!-- Start Footer Area -->
 <footer class="footer">
     <div class="copyright">
-        <div class="container">
+        <div class="container mt-5">
             <div class="inner">
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <div class="left">
-                            <p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>  -  All Rights Reserved.</p>
+                            <p>Copyright © 2020 Trippy Bicycles -
+                                All Rights Reserved.</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="right">
-                            <img src="images/payments.png" alt="#">
+                            <p> Ricardo Correia a64007</p>
                         </div>
                     </div>
                 </div>
@@ -103,6 +156,7 @@
         </div>
     </div>
 </footer>
+</body>
 <!-- /End Footer Area -->
 <!-- Jquery -->
 <script src="{{ asset('js/jquery.min.js') }}"></script>
@@ -121,22 +175,22 @@
 <!-- Magnific Popup JS -->
 <script src="{{ asset('js/magnific-popup.js') }}"></script>
 <!-- Fancybox JS -->
-<script src="js/facnybox.min.js"></script>
+<script src="{{ asset('js/facnybox.min.js') }}"></script>
 <!-- Waypoints JS -->
-<script src="js/waypoints.min.js"></script>
+<script src="{{ asset('js/waypoints.min.js') }}"></script>
 <!-- Countdown JS -->
-<script src="js/finalcountdown.min.js"></script>
+<script src="{{ asset('js/finalcountdown.min.js') }}"></script>
 <!-- Nice Select JS -->
-<script src="js/nicesellect.js"></script>
+<script src="{{ asset('js/nicesellect.js') }}"></script>
 <!-- Ytplayer JS -->
-<script src="js/ytplayer.min.js"></script>
+<script src="{{ asset('js/ytplayer.min.js') }}"></script>
 <!-- Flex Slider JS -->
-<script src="js/flex-slider.js"></script>
+<script src="{{ asset('js/flex-slider.js') }}"></script>
 <!-- ScrollUp JS -->
-<script src="js/scrollup.js"></script>
+<script src="{{ asset('js/scrollup.js') }}"></script>
 <!-- Onepage Nav JS -->
-<script src="js/onepage-nav.min.js"></script>
+<script src="{{ asset('js/onepage-nav.min.js') }}"></script>
 <!-- Easing JS -->
-<script src="js/easing.js"></script>
+<script src="{{ asset('js/easing.js') }}"></script>
 <!-- Active JS -->
-<script src="js/active.js"></script>
+<script src="{{ asset('js/active.js') }}"></script>

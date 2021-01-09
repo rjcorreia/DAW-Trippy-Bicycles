@@ -128,6 +128,8 @@ section {
 }
 
 body {
+    background:url('../img/background_shop.jpg') no-repeat center center fixed !important;
+    background-size:cover !important;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 1rem;

@@ -4,20 +4,17 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MainController extends AbstractController
+class ProductsController extends AbstractController
 {
     /**
-     * @Route("/", name="Home")
+     * @Route("/products", name="Products")
      */
     public function index(): Response
     {
-        $session = new Session();
-        $session->start();
         $info = $this->setInfo();
-        return $this->render('main/index.html.twig', [
+        return $this->render('products/index.html.twig', [
             'info' => $info
         ]);
     }

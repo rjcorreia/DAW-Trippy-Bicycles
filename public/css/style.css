@@ -1747,6 +1747,7 @@ Version:1.0
 /* Sinlge Product */
 .single-product{
     margin-top:50px;
+    background-color:white;
 }
 .single-product .product-img {
     position: relative;
@@ -1975,6 +1976,7 @@ Version:1.0
     line-height: 50px;
 }
 .single-product .product-content{
+    text-decoration-color: darkgrey;
     margin-top:20px;
 }
 .single-product .product-img:hover.default-overlay::before {
@@ -3109,7 +3111,7 @@ Version:1.0
 .shopping-cart .total-amount .left .checkbox label::after {
     position: absolute;
     content: "\f00c";
-    font-family: "Fontawesome";
+    font-family: 'Roboto Mono', monospace;
     left: 0;
     top: 0;
     width: 22px;
@@ -3514,7 +3516,7 @@ Version:1.0
 .shop.login .login-form .checkbox label::after {
     position: absolute;
     content: "\f00c";
-    font-family: "Fontawesome";
+    font-family: 'Roboto Mono', monospace;
     width: 12px;
     height: 12px;
     line-height: 23px;

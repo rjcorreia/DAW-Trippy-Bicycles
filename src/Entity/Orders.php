@@ -43,7 +43,7 @@ class Orders
     private $total;
 
     /**
-     * @var \Users
+     *
      *
      * @ORM\ManyToOne(targetEntity="Users")
      * @ORM\JoinColumns({

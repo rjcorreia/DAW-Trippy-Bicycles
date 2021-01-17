@@ -48,10 +48,64 @@ class OrdersRepository extends ServiceEntityRepository
     }
     */
 
+
+    public function getFromOrderId($id) {
+        $query = $this->getEntityManager()->createQuery('SELECT o FROM App:Orders o WHERE o.id = ?1');
+        $query->setParameter(1, $id);
+        return $query->getResult()[0];
+    }
+
+    public function getOrderFromId($id) {
+        $query = $this->getEntityManager()->createQuery('SELECT o FROM App:Orders o WHERE o.id = ?1');
+        $query->setParameter(1, $id);
+        return $query->getResult();
+    }
     public function getFromId($userId): array
     {
-        $query = $this->getEntityManager()->createQuery('SELECT o FROM App:Orders o WHERE o.id = ?1');
+        $query = $this->getEntityManager()->createQuery('SELECT o FROM App:Orders o WHERE IDENTITY(o.user) = ?1');
         $query->setParameter(1, $userId);
         return $query->getResult();
+    }
+
+    function getOrderIdFromUser($uid)
+    {
+        $query = $this->getEntityManager()->createQuery('SELECT o.id FROM App:Orders o WHERE IDENTITY(o.user) = ?1');
+        $query->setParameter(1, $uid);
+        $result = $query->getResult();
+        if ($result) {
+            return $query->getResult();
+        } else {
+            return '';
+        }
+    }
+    function getOrderIdValueFromUser($uid)
+    {
+        $query = $this->getEntityManager()->createQuery('SELECT o.id FROM App:Orders o WHERE IDENTITY(o.user) = ?1');
+        $query->setParameter(1, $uid);
+        $result = $query->getResult();
+        if ($result) {
+            return $query->getResult()[0];
+        } else {
+            return '';
+        }
+    }
+
+
+    public function insertOrder($user) {
+        $entityManager = $this->getEntityManager();
+        $order = new Orders();
+        $order->setUser($user);
+        $order->setCreatedAt(new \DateTime());
+        $order->setStatus(1);
+        $entityManager->persist($order);
+        $entityManager->flush();
+    }
+
+    function updateTotal($total, $orderId)
+    {
+        $query = $this->getEntityManager()->createQuery('UPDATE App:Orders m SET m.total = ?1WHERE m.id = ?2');
+        $query->setParameter(1, $total);
+        $query->setParameter(2, $orderId);
+        $query->getResult();
     }
 }

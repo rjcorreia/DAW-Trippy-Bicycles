@@ -36,12 +36,23 @@ class ProductsRepository extends ServiceEntityRepository
     }
     */
 
+
+
+    public function getProductFromId($id)
+    {
+        $query = $this->getEntityManager()->createQuery('SELECT p FROM App:Products p WHERE p.id = ?1');
+        $query->setParameter(1, $id);
+        return $query->getResult()[0];
+    }
+
+
     public function getFromId($id): array
     {
         $query = $this->getEntityManager()->createQuery('SELECT p FROM App:Products p WHERE p.id = ?1');
         $query->setParameter(1, $id);
         return $query->getResult();
     }
+
 
     public function findOneBySomeField($value): ?Products
     {

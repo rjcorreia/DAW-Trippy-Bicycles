@@ -18,7 +18,6 @@ class ProductsController extends AbstractController
     {
         $info = $this->setInfo();
         $products = $productsRepository->getAllProducts();
-        dump($products);
         return $this->render('products/index.html.twig', [
             'info' => $info,
             'products' => $products

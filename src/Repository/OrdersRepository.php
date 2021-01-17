@@ -47,4 +47,11 @@ class OrdersRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getFromId($userId): array
+    {
+        $query = $this->getEntityManager()->createQuery('SELECT o FROM App:Orders o WHERE o.id = ?1');
+        $query->setParameter(1, $userId);
+        return $query->getResult();
+    }
 }

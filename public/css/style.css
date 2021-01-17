@@ -227,7 +227,7 @@ Version:1.0
 ========================================*/
 /* Topbar */
 .topbar {
-    background-color: #fff;
+    background-color:
     border-bottom: 1px solid #e2e2e2;
     padding: 15px 0;
 }
@@ -1158,7 +1158,7 @@ Version:1.0
     visibility:visible;
 }
 .header.sticky .header-inner .nav li a {
-    color: #333;
+    color: white;
 }
 .header.sticky.v3 .header-inner .nav li a {
     color: #fff;
@@ -1185,7 +1185,7 @@ Version:1.0
     position:fixed;
     top:0;
     left:0;
-    background:#fff;
+    background:rgb(51,51,51);
     animation: fadeInDown 1s both 0.2s;
     -webkit-box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);
     -moz-box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -1914,7 +1914,7 @@ Version:1.0
     display: block;
     background-color: transparent;
     color: #333;
-    margin-left: 6.8rem;
+    margin-left: 5.5rem;
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
@@ -2032,7 +2032,6 @@ Version:1.0
 ========================================*/
 .shop-sidebar .single-widget {
     margin-top: 30px;
-    background: #F6F7FB;
     padding: 30px;
 }
 .shop-sidebar .single-widget:first-child {
@@ -2137,8 +2136,13 @@ Version:1.0
 }
 .shop-sidebar .categor-list li a {
     display: inline-block;
-    color: #666;
+    background-color:white;
+    color: black;
+    margin-left:3rem;
+    width: 50%;
+    heigth:100%;
     font-weight: 400;
+    text-align: center;
     font-size: 14px;
     text-transform: capitalize;
 }
@@ -4965,12 +4969,17 @@ Version:1.0
     margin: 0 auto;
 }
 
+.box-shop-grid {
+    padding-bottom: 3rem;
+    display: block;
+    background-color: rgba(55,55,55,0.8);
+}
+
 .white-box-login {
     padding-bottom: 3rem;
     display: block;
     background-color: rgba(255,255,255,0.8);
     width:60%;
-    height:60%;
     margin-left:14rem;
 }
 

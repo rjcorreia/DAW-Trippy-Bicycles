@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -18,7 +19,8 @@ class SecurityController extends AbstractController
         $info['menu1'] = "Login";
         $info['menu2'] = "Register";
         $info['menu3'] = "Cart";
-
+        $session = new Session();
+        $cartItems = $session->get('cart');
         if ($this->getUser()) {
             $this->addFlash('error', 'Must logout before logging in again.');
             return $this->redirectToRoute('Home');
@@ -31,7 +33,8 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig',
             ['last_username' => $lastUsername,
                 'error' => $error,
-                'info' => $info]);
+                'info' => $info,
+                'cart' => $cartItems]);
     }
 
     /**

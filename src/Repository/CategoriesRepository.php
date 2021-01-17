@@ -47,4 +47,10 @@ class CategoriesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    function getAllCategories()
+    {
+        $query = $this->getEntityManager()->createQuery('SELECT c FROM App:Categories c');
+        return $query->getResult();
+    }
 }

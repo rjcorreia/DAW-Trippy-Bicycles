@@ -1,155 +1,102 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Trippy | Cart{% endblock %}
+{% block title %}Cart{% endblock %}
 
 {% block body %}
 
     <!-- Shopping Cart -->
-    <div class="shopping-cart section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <!-- Shopping Summery -->
-                    <table class="table shopping-summery">
-                        <thead>
-                        <tr class="main-hading">
-                            <th>PRODUCT</th>
-                            <th>NAME</th>
-                            <th class="text-center">UNIT PRICE</th>
-                            <th class="text-center">QUANTITY</th>
-                            <th class="text-center">TOTAL</th>
-                            <th class="text-center"><i class="ti-trash remove-icon"></i></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-{#                     {# FOR LOOP #}
-                        <tr>
-                            <td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#">
-                            </td>
-                            <td class="product-des" data-title="Description">
-                                <p class="product-name"><a href="#">Women Dress</a></p>
-                                <p class="product-des">Maboriosam in a tonto nesciung eget distingy magndapibus.</p>
-                            </td>
-                            <td class="price" data-title="Price"><span>$110.00 </span></td>
-                            <td class="qty" data-title="Qty"><!-- Input Order -->
-                                <div class="input-group">
-                                    <div class="button minus">
-                                        <button type="button" class="btn btn-primary btn-number" disabled="disabled"
-                                                data-type="minus" data-field="quant[1]">
-                                            <i class="ti-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" name="quant[1]" class="input-number" data-min="1" data-max="100"
-                                           value="1">
-                                    <div class="button plus">
-                                        <button type="button" class="btn btn-primary btn-number" data-type="plus"
-                                                data-field="quant[1]">
-                                            <i class="ti-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <!--/ End Input Order -->
-                            </td>
-                            <td class="total-amount" data-title="Total"><span>$220.88</span></td>
-                            <td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#">
-                            </td>
-                            <td class="product-des" data-title="Description">
-                                <p class="product-name"><a href="#">Women Dress</a></p>
-                                <p class="product-des">Maboriosam in a tonto nesciung eget distingy magndapibus.</p>
-                            </td>
-                            <td class="price" data-title="Price"><span>$110.00 </span></td>
-                            <td class="qty" data-title="Qty"><!-- Input Order -->
-                                <div class="input-group">
-                                    <div class="button minus">
-                                        <button type="button" class="btn btn-primary btn-number" disabled="disabled"
-                                                data-type="minus" data-field="quant[2]">
-                                            <i class="ti-minus"></i>
-                                        </button>
-                                    </div>
-                                    <label>
-                                        <input type="text" name="quant[2]" class="input-number" data-min="1"
-                                               data-max="100"
-                                               value="2">
-                                    </label>
-                                    <div class="button plus">
-                                        <button type="button" class="btn btn-primary btn-number" data-type="plus"
-                                                data-field="quant[2]">
-                                            <i class="ti-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <!--/ End Input Order -->
-                            </td>
-                            <td class="total-amount" data-title="Total"><span>$220.88</span></td>
-                            <td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#">
-                            </td>
-                            <td class="product-des" data-title="Description">
-                                <p class="product-name"><a href="#">Women Dress</a></p>
-                                <p class="product-des">Maboriosam in a tonto nesciung eget distingy magndapibus.</p>
-                            </td>
-                            <td class="price" data-title="Price"><span>$110.00 </span></td>
-                            <td class="qty" data-title="Qty"><!-- Input Order -->
-                                <div class="input-group">
-                                    <div class="button minus">
-                                        <button type="button" class="btn btn-primary btn-number" disabled="disabled"
-                                                data-type="minus" data-field="quant[3]">
-                                            <i class="ti-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" name="quant[3]" class="input-number" data-min="1" data-max="100"
-                                           value="3">
-                                    <div class="button plus">
-                                        <button type="button" class="btn btn-primary btn-number" data-type="plus"
-                                                data-field="quant[3]">
-                                            <i class="ti-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <!--/ End Input Order -->
-                            </td>
-                            <td class="total-amount" data-title="Total"><span>$220.88</span></td>
-                            <td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <!--/ End Shopping Summery -->
+    {% if cartItems %}
+        <div class="shopping-cart section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Shopping Summery -->
+                        <table class="table shopping-summery">
+                            <thead>
+                            <tr class="main-hading">
+                                <th>PRODUCT</th>
+                                <th>NAME</th>
+                                <th class="text-center">UNIT PRICE</th>
+                                <th class="text-center">QUANTITY</th>
+                                <th class="text-center">TOTAL</th>
+                                <th class="text-center"><a class="ti-trash remove-icon" href={{ path('clear_cart') }}></a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% set total = 0 %}
+                            {% for product in cartItems %}
+                                <tr>
+                                    <td class="image" ><img src="{{ product.image }}" alt=""></td>
+                                    <td class="product-des" data-title="Description">
+                                        <p class="product-name"><a>{{ product.name }}</a></p>
+                                        <p class="product-des">{{ product.description }}</p>
+                                    </td>
+                                    <td class="price" data-title="Price"><span>€{{ product.price }}.00</span></td>
+                                    <td class="qty" data-title="Qty"><!-- Input Order -->
+                                        <div class="input-group">
+                                            <div class="button minus">
+                                                <button type="button" class="btn">
+                                                    <a class="ti-minus" href={{ path('decrement_product',{'productId':product.id}) }}></a>
+                                                </button>
+                                            </div>
+                                            <input type="text" name="quant[1]" class="input-number" data-min="1"
+                                                   data-max="100"
+                                                   value="{{ cartQt[ loop.index - 1] }}">
+                                            <div class="button plus">
+                                                <button type="button" class="btn">
+                                                    <a class="ti-plus" href={{ path('increment_product',{'productId':product.id}) }}></a>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!--/ End Input Order -->
+                                    </td>
+                                    <td class="total-amount" data-title="Total">
+                                        <span>€{{ cartQt[ loop.index - 1] * product.price }}.00</span></td>
+                                    <td class="action" data-title="Remove"><a href={{ path('eliminate_product',{'productId':product.id}) }}><i
+                                                    class="ti-trash remove-icon"></i></a>
+                                    </td>
+                                </tr>
+                                    {% set total = total+ (cartQt[ loop.index - 1] * product.price)  %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <!--/ End Shopping Summery -->
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <!-- Total Amount -->
-                    <div class="total-amount">
-                        <div class="row">
-                            <div class="col-lg-8 col-md-5 col-12">
-                            </div>
-                            <div class="col-lg-4 col-md-7 col-12">
-                                <div class="right">
-                                    <ul>
-                                        <li class = "text-light">Cart Subtotal<span>$330.00</span></li>
-                                        <li class="last text-light">You Pay<span>$310.00</span></li>
-                                    </ul>
-                                    <div class="button5">
-                                        <a href="#" class="btn">Checkout</a>
-                                        <a href="{{ path('Products') }}" class="btn">Continue shopping</a>
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Total Amount -->
+                        <div class="total-amount">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-5 col-12">
+                                </div>
+                                <div class="col-lg-4 col-md-7 col-12">
+                                    <div class="right">
+                                        <ul>
+                                            <li class="text-light">Cart Subtotal<span>€{{ total }}.00</span></li>
+                                            <li class="last text-light">You Pay<span>€{{ total }}.00</span></li>
+                                        </ul>
+                                        <div class="button5">
+                                            <a href="#" class="btn">Checkout</a>
+                                            <a href="{{ path('Products') }}" class="btn">Continue shopping</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!--/ End Total Amount -->
                     </div>
-                    <!--/ End Total Amount -->
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
+    {% else %}
+        <div class="alert alert-danger w-50 alert-dismissible mt-3 show mx-auto text-center" role="alert">
+            <h4>Your shopping cart is empty! </h4>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
     <!--/ End Shopping Cart -->
 {% endblock %}

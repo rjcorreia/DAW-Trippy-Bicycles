@@ -26,7 +26,7 @@
                                 {% set total = 0 %}
                             {% for product in cartItems %}
                                 <tr>
-                                    <td class="image" ><img src="{{ product.image }}" alt=""></td>
+                                    <td class="image" ><img src="{{ asset(product.image) }}" alt=""></td>
                                     <td class="product-des" data-title="Description">
                                         <p class="product-name"><a>{{ product.name }}</a></p>
                                         <p class="product-des">{{ product.description }}</p>

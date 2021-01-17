@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Repository\OrderItemsRepository;
+use App\Repository\OrdersRepository;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,9 +33,11 @@ class CartController extends AbstractController
                 $cart = array_merge($cart, $product);
             }
             foreach ($cartItemsQt as $quantity)
-                $quantities[]= $quantity;
+                $quantities[] = $quantity;
         }
         $info = $this->setInfo();
+        $session->set('cartItems', $cartItems);
+        $session->set('quantities', $quantities);
         return $this->render('cart/cart.html.twig', [
             'info' => $info,
             'cart' => $cartItems,
@@ -61,5 +65,131 @@ class CartController extends AbstractController
         }
 
         return $info;
+    }
+
+
+    /**
+     * @Route("/decrement/product/productId?", name="decrement_product")
+     * @param Request $request
+     * @param ProductsRepository $productsRepository
+     * @return Response
+     */
+    public function decrementProduct(Request $request, ProductsRepository $productsRepository): Response
+    {
+        $session = new Session();
+        $session->start();
+        $productId = $request->get('productId');
+        $session = new Session();
+        if ($session->get('cart') == null)
+            $cart = [];
+        else
+            $cart = $session->get('cart');
+        if ($productId) {
+            //reverse array to search backwards so it does not change the order of the cart
+            $tempArray = array_reverse($cart);
+            $index = array_search($productId, $tempArray);
+            unset($tempArray[$index]);
+            $session->set('cart', array_reverse($tempArray));
+        }
+        return $this->redirectToRoute('Cart');
+    }
+
+
+    /**
+     * @Route("/eliminate/product/productId?", name="eliminate_product")
+     * @param Request $request
+     * @return Response
+     */
+    public function eliminateProduct(Request $request): Response
+    {
+        $session = new Session();
+        $cart = $session->get('cart');
+        $productId = array($request->get('productId'));
+        $cart = array_diff($cart, $productId);
+        $session->set('cart', $cart);
+        return $this->redirectToRoute('Cart', [
+
+        ]);
+    }
+
+    /**
+     * @Route("/increment/product/productId?", name="increment_product")
+     * @param Request $request
+     * @param ProductsRepository $productsRepository
+     * @return Response
+     */
+    public function incrementProduct(Request $request, ProductsRepository $productsRepository): Response
+    {
+        $session = new Session();
+        $session->start();
+        $productId = $request->get('productId');
+        $session = new Session();
+        if ($session->get('cart') == null)
+            $cart = [];
+        else
+            $cart = $session->get('cart');
+        if ($productId) {
+            array_push($cart, $productId);
+            $session->set('cart', $cart);
+        }
+        return $this->redirectToRoute('Cart');
+    }
+
+
+    /**
+     * @Route("/clear", name="clear_cart")
+     */
+    public function clearCart(): Response
+    {
+        $cart = array();
+        $session = new Session;
+        $session->set('cart', $cart);
+        return $this->redirectToRoute('Cart');
+    }
+
+    /**
+     * @Route("/checkout", name="checkout")
+     * @param Request $request
+     * @param OrderItemsRepository $orderItemsRepository
+     * @param OrdersRepository $ordersRepository
+     * @param ProductsRepository $productsRepository
+     * @return Response
+     */
+    public function checkout(Request $request, OrderItemsRepository $orderItemsRepository, OrdersRepository $ordersRepository, ProductsRepository $productsRepository): Response
+    {
+        $session = new Session;
+        $user = $this->getUser();
+        if ($user == NULL) {
+            $this->addFlash('error', 'You must login in first before you can checkout');
+            return $this->redirect($this->generateUrl('Cart'));
+        }
+        else {
+            $this->addFlash('success', 'Order made with success, you will have the ride of your life!');
+
+            $cartItems = $session->get('cartItems');
+            $cart= $session->get('cart');
+            dump($cartItems);
+            $cartItemsQt = array_count_values($cart);
+            dump($cartItemsQt);
+//            die;
+            $ordersRepository->insertOrder($user);
+            $orderArray = $ordersRepository->getOrderIdFromUser($user);
+//            dump($orderArray);
+            $orderArray = array_reverse($orderArray);
+            $lastOrder = $orderArray[0]['id'];
+//            dump($lastOrder);
+            $totalAmount = 0;
+            for($i = 0; $i < count($cartItemsQt); ++$i) {
+                $currentProduct = $productsRepository->getProductFromId($cartItems[$i]);
+                $currentQuantity = $cartItemsQt[$cartItems[$i]];
+//                dump($currentQuantity);
+                $totalAmount += ($currentProduct->getPrice() * $currentQuantity);
+                $orderItemsRepository->insertOrderItem($ordersRepository->getFromOrderId($lastOrder),$currentProduct,$currentQuantity);
+            }
+            $ordersRepository->updateTotal($totalAmount,$lastOrder);
+            $cart = array();
+            $session->set('cart',$cart);
+            return $this->redirect($this->generateUrl('Home'));
+        }
     }
 }

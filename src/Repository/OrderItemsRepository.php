@@ -22,19 +22,15 @@ class OrderItemsRepository extends ServiceEntityRepository
     // /**
     //  * @return OrderItems[] Returns an array of OrderItems objects
     //  */
-    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
+            ->andWhere('o.order = :val')
             ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?OrderItems
@@ -47,4 +43,15 @@ class OrderItemsRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    function insertOrderItem($orderId, $productId, $quantity)
+    {
+        $entityManager = $this->getEntityManager();
+        $orderItem = new OrderItems();
+        $orderItem->setOrder($orderId);
+        $orderItem->setProduct($productId);
+        $orderItem->setQuantity($quantity);
+        $entityManager->persist($orderItem);
+        $entityManager->flush();
+    }
 }

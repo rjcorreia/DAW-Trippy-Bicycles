@@ -29,7 +29,7 @@ class OrderItems
     private $quantity;
 
     /**
-     * @var \Orders
+     *
      *
      * @ORM\ManyToOne(targetEntity="Orders")
      * @ORM\JoinColumns({
@@ -39,7 +39,6 @@ class OrderItems
     private $order;
 
     /**
-     * @var \Products
      *
      * @ORM\ManyToOne(targetEntity="Products")
      * @ORM\JoinColumns({

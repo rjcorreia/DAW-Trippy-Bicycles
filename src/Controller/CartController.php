@@ -2,20 +2,43 @@
 
 namespace App\Controller;
 
+use App\Repository\OrderItemsRepository;
+use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends AbstractController
 {
     /**
      * @Route("/cart", name="Cart")
+     * @param ProductsRepository $productsRepository
+     * @param OrderItemsRepository $orderItemsRepository
+     * @return Response
      */
-    public function index(): Response
+    public function index(ProductsRepository $productsRepository, OrderItemsRepository $orderItemsRepository): Response
     {
+        $session = new Session();
+        $cartItems = $session->get('cart');
+        $cart = array();
+        $quantities = array();
+        if ($cartItems) {
+            $cartItemsQt = array_count_values($cartItems);
+            $cartItems = array_keys($cartItemsQt);
+            foreach ($cartItems as $item) {
+                $product = $productsRepository->getFromId($item);
+                $cart = array_merge($cart, $product);
+            }
+            foreach ($cartItemsQt as $quantity)
+                $quantities[]= $quantity;
+        }
         $info = $this->setInfo();
         return $this->render('cart/cart.html.twig', [
-            'info' => $info
+            'info' => $info,
+            'cart' => $cartItems,
+            'cartItems' => $cart,
+            'cartQt' => $quantities,
         ]);
     }
 

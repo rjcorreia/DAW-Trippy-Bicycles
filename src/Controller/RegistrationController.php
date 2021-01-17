@@ -7,6 +7,7 @@ use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -21,6 +22,8 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
 
+        $session = new Session();
+        $cartItems = $session->get('cart');
         if ($this->getUser()) {
             $this->addFlash('error', 'Must logout before register another user.');
             return $this->redirectToRoute('Home');
@@ -48,7 +51,8 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-            'info' => $info
+            'info' => $info,
+            'cart' => $cartItems
         ]);
     }
 

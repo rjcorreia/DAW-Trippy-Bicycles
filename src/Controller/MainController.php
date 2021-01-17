@@ -15,10 +15,11 @@ class MainController extends AbstractController
     public function index(): Response
     {
         $session = new Session();
-        $session->start();
+        $cartItems = $session->get('cart');
         $info = $this->setInfo();
         return $this->render('main/index.html.twig', [
-            'info' => $info
+            'info' => $info,
+            'cart' => $cartItems
         ]);
     }
 

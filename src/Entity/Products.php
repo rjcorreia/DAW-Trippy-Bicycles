@@ -59,6 +59,24 @@ class Products
      */
     private $cat;
 
+    protected $quantity;
+
+    /**
+     * @param mixed $quantity
+     */
+    public function setQuantity($quantity): void
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

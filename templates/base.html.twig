@@ -1,5 +1,5 @@
 <head>
-    <title> {% block title %} {% endblock %}</title>
+    <title> Trippy Bicycles | {% block title %} {% endblock %}</title>
     <meta data-n-head="ssr" charset="utf-8">
     <meta data-n-head="ssr" name="viewport" content="width=device-width,initial-scale=1">
     <link data-n-head="ssr" rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
@@ -52,7 +52,7 @@
     <!-- Header Inner -->
     <div class="header-inner">
         <div class="cat-nav-head">
-            <nav class="navbar navbar-expand-lg ">
+            <nav class="navbar navbar-expand-lg">
                 <div class="navbar-collapse">
                     <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
@@ -93,7 +93,7 @@
                             {% if app.request.get('_route') == info.menu3 %}
                                 <li class="active"><a href='{{ path(info.menu3) }}'> {{ info.menu3 }} </a></li>
                             {% else %}
-                                <li><a href='{{ path(info.menu3) }}'> {{ info.menu3 }} </a></li>
+                                <li><a href='{{ path(info.menu3) }}'> {{ info.menu3 }} ({{ cart|length}})  </a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -148,7 +148,7 @@
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="right">
-                            <p> Ricardo Correia a64007</p>
+                            <p> Designed by Ricardo Correia a64007</p>
                         </div>
                     </div>
                 </div>

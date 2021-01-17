@@ -2,26 +2,45 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoriesRepository;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProductsController extends AbstractController
 {
     /**
-     * @Route("/products", name="Products")
+     * @Route("/products/productId?", name="Products")
      * @param ProductsRepository $productsRepository
+     * @param CategoriesRepository $categoriesRepository
+     * @param Request $request
      * @return Response
      */
-    public function index(ProductsRepository $productsRepository): Response
+    public function index(Request $request, ProductsRepository $productsRepository, CategoriesRepository $categoriesRepository): Response
     {
+        $session = new Session();
+        $session->start();
         $info = $this->setInfo();
+        $productId = $request->get('productId');
+        $session = new Session();
+        if ($session->get('cart') == null)
+            $cart = [];
+        else
+            $cart = $session->get('cart');
+        if ($productId) {
+            array_push($cart, $productId);
+            $session->set('cart', $cart);
+        }
         $products = $productsRepository->getAllProducts();
-        dump($products);
+        $categories = $categoriesRepository->getAllCategories();
         return $this->render('products/index.html.twig', [
             'info' => $info,
-            'products' => $products
+            'products' => $products,
+            'categories' => $categories,
+            'cart' => $cart
         ]);
     }
 
@@ -42,5 +61,11 @@ class ProductsController extends AbstractController
         }
 
         return $info;
+    }
+
+
+    function updateCart()
+    {
+
     }
 }

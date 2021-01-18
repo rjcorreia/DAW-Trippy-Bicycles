@@ -35,10 +35,7 @@ class ProductsController extends AbstractController
             $session->set('cart', $cart);
         }
         $products = $productsRepository->getAllProducts();
-<<<<<<< HEAD
-=======
         $categories = $categoriesRepository->getAllCategories();
->>>>>>> d12ae39b1c50a30a5dda72e88506f57fcd4a884d
         return $this->render('products/index.html.twig', [
             'info' => $info,
             'products' => $products,

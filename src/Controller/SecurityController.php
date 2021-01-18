@@ -20,7 +20,7 @@ class SecurityController extends AbstractController
         $info['menu2'] = "Register";
         $info['menu3'] = "Cart";
         $session = new Session();
-        $cartItems = $session->get('cart');
+        $cartItems = $session->get('bikeCart');
         if ($this->getUser()) {
             $this->addFlash('error', 'Must logout before logging in again.');
             return $this->redirectToRoute('Home');

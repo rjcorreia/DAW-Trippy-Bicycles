@@ -15,7 +15,7 @@ class MainController extends AbstractController
     public function index(): Response
     {
         $session = new Session();
-        $cartItems = $session->get('cart');
+        $cartItems = $session->get('bikeCart');
         $info = $this->setInfo();
         return $this->render('main/index.html.twig', [
             'info' => $info,

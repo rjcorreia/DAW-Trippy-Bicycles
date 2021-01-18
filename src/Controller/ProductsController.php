@@ -26,13 +26,13 @@ class ProductsController extends AbstractController
         $info = $this->setInfo();
         $productId = $request->get('productId');
         $session = new Session();
-        if ($session->get('cart') == null)
+        if ($session->get('bikeCart') == null)
             $cart = [];
         else
-            $cart = $session->get('cart');
+            $cart = $session->get('bikeCart');
         if ($productId) {
             array_push($cart, $productId);
-            $session->set('cart', $cart);
+            $session->set('bikeCart', $cart);
         }
         $products = $productsRepository->getAllProducts();
         $categories = $categoriesRepository->getAllCategories();

@@ -22,7 +22,7 @@ class CartController extends AbstractController
     public function index(ProductsRepository $productsRepository, OrderItemsRepository $orderItemsRepository): Response
     {
         $session = new Session();
-        $cartItems = $session->get('cart');
+        $cartItems = $session->get('bikeCart');
         $cart = array();
         $quantities = array();
         if ($cartItems) {
@@ -80,16 +80,16 @@ class CartController extends AbstractController
         $session->start();
         $productId = $request->get('productId');
         $session = new Session();
-        if ($session->get('cart') == null)
+        if ($session->get('bikeCart') == null)
             $cart = [];
         else
-            $cart = $session->get('cart');
+            $cart = $session->get('bikeCart');
         if ($productId) {
             //reverse array to search backwards so it does not change the order of the cart
             $tempArray = array_reverse($cart);
             $index = array_search($productId, $tempArray);
             unset($tempArray[$index]);
-            $session->set('cart', array_reverse($tempArray));
+            $session->set('bikeCart', array_reverse($tempArray));
         }
         return $this->redirectToRoute('Cart');
     }
@@ -103,10 +103,10 @@ class CartController extends AbstractController
     public function eliminateProduct(Request $request): Response
     {
         $session = new Session();
-        $cart = $session->get('cart');
+        $cart = $session->get('bikeCart');
         $productId = array($request->get('productId'));
         $cart = array_diff($cart, $productId);
-        $session->set('cart', $cart);
+        $session->set('bikeCart', $cart);
         return $this->redirectToRoute('Cart', [
 
         ]);
@@ -124,13 +124,13 @@ class CartController extends AbstractController
         $session->start();
         $productId = $request->get('productId');
         $session = new Session();
-        if ($session->get('cart') == null)
+        if ($session->get('bikeCart') == null)
             $cart = [];
         else
-            $cart = $session->get('cart');
+            $cart = $session->get('bikeCart');
         if ($productId) {
             array_push($cart, $productId);
-            $session->set('cart', $cart);
+            $session->set('bikeCart', $cart);
         }
         return $this->redirectToRoute('Cart');
     }
@@ -143,7 +143,7 @@ class CartController extends AbstractController
     {
         $cart = array();
         $session = new Session;
-        $session->set('cart', $cart);
+        $session->set('bikeCart', $cart);
         return $this->redirectToRoute('Cart');
     }
 

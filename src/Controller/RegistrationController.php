@@ -23,7 +23,7 @@ class RegistrationController extends AbstractController
     {
 
         $session = new Session();
-        $cartItems = $session->get('cart');
+        $cartItems = $session->get('bikeCart');
         if ($this->getUser()) {
             $this->addFlash('error', 'Must logout before register another user.');
             return $this->redirectToRoute('Home');

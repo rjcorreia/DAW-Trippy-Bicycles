@@ -167,7 +167,7 @@ class CartController extends AbstractController
             $this->addFlash('success', 'Order made with success, you will have the ride of your life!');
 
             $cartItems = $session->get('cartItems');
-            $cart= $session->get('cart');
+            $cart= $session->get('bikeCart');
             dump($cartItems);
             $cartItemsQt = array_count_values($cart);
             dump($cartItemsQt);
@@ -188,7 +188,7 @@ class CartController extends AbstractController
             }
             $ordersRepository->updateTotal($totalAmount,$lastOrder);
             $cart = array();
-            $session->set('cart',$cart);
+            $session->set('bikeCart',$cart);
             return $this->redirect($this->generateUrl('Home'));
         }
     }

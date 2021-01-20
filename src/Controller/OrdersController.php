@@ -25,12 +25,8 @@ class OrdersController extends AbstractController
         $items = array();
         foreach ($products as $product) {
             $items = array_merge($items,$orderItemsRepository->findByExampleField($product->getId()));
-            dump($items);
         }
         $info = $this->setInfo();
-
-        dump($products);
-        dump($items);
         return $this->render('orders/index.html.twig', [
             'info' => $info,
             'cart' => $cartItems,

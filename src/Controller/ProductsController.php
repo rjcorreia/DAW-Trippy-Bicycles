@@ -13,13 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductsController extends AbstractController
 {
     /**
-     * @Route("/products/productId?", name="Products")
+     * @Route("/products/{productId?}", name="Products")
      * @param ProductsRepository $productsRepository
      * @param CategoriesRepository $categoriesRepository
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request, ProductsRepository $productsRepository, CategoriesRepository $categoriesRepository): Response
+    public function index(Request $request, ProductsRepository $productsRepository, CategoriesRepository $categoriesRepository)
     {
         $session = new Session();
         $session->start();
@@ -30,10 +30,6 @@ class ProductsController extends AbstractController
             $cart = [];
         else
             $cart = $session->get('bikeCart');
-        if ($productId) {
-            array_push($cart, $productId);
-            $session->set('bikeCart', $cart);
-        }
         $products = $productsRepository->getAllProducts();
         $categories = $categoriesRepository->getAllCategories();
         return $this->render('products/index.html.twig', [
@@ -64,8 +60,27 @@ class ProductsController extends AbstractController
     }
 
 
-    function updateCart()
+    /**
+     * @Route("/products/updatedCart/{productId?}", name="update_cart")
+     * @param Request $request
+     * @return Response
+     */
+    function updateCart(Request $request)
     {
+        $session = new Session();
+        $session->start();
+        $info = $this->setInfo();
+        $productId = $request->get('productId');
+        $session = new Session();
+        if ($session->get('bikeCart') == null)
+            $cart = [];
+        else
+            $cart = $session->get('bikeCart');
+        if ($productId) {
+            array_push($cart, $productId);
+            $session->set('bikeCart', $cart);
+        }
 
+        return $this->redirect($this->generateUrl('Products'));
     }
 }

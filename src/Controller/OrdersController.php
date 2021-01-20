@@ -16,15 +16,19 @@ class OrdersController extends AbstractController
      * @param OrdersRepository $ordersRepository
      * @return Response
      */
-    public function index(OrdersRepository $ordersRepository,OrderItemsRepository $orderItemsRepository): Response
+    public function index(OrdersRepository $ordersRepository, OrderItemsRepository $orderItemsRepository): Response
     {
         $session = new Session();
         $cartItems = $session->get('cart');
         $user = $this->getUser();
+        if (!$user) {
+            $this->addFlash('error', 'Forbidden, you must login first');
+            return $this->redirect($this->generateUrl('Home'));
+        }
         $products = $ordersRepository->getFromId($user);
         $items = array();
         foreach ($products as $product) {
-            $items = array_merge($items,$orderItemsRepository->findByExampleField($product->getId()));
+            $items = array_merge($items, $orderItemsRepository->findByExampleField($product->getId()));
         }
         $info = $this->setInfo();
         return $this->render('orders/index.html.twig', [

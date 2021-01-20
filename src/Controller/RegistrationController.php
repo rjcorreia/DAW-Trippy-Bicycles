@@ -11,6 +11,12 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+
+
+/**
+ * Class RegistrationController
+ * @Route("/eshop", name="")
+ */
 class RegistrationController extends AbstractController
 {
     /**

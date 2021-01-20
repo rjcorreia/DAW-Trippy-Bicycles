@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class ProductsController
+ * @Route("/eshop", name="")
+ */
 class ProductsController extends AbstractController
 {
     /**
@@ -24,12 +28,12 @@ class ProductsController extends AbstractController
         $session = new Session();
         $session->start();
         $info = $this->setInfo();
-        $productId = $request->get('productId');
         $session = new Session();
         if ($session->get('bikeCart') == null)
             $cart = [];
-        else
+        else {
             $cart = $session->get('bikeCart');
+        }
         $products = $productsRepository->getAllProducts();
         $categories = $categoriesRepository->getAllCategories();
         return $this->render('products/index.html.twig', [

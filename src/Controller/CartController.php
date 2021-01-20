@@ -11,6 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+
+/**
+ * Class CartController
+ * @Route("/eshop", name="")
+ */
 class CartController extends AbstractController
 {
     /**
@@ -69,7 +75,7 @@ class CartController extends AbstractController
 
 
     /**
-     * @Route("/decrement/product/productId?", name="decrement_product")
+     * @Route("decrement/product/productId?", name="decrement_product")
      * @param Request $request
      * @param ProductsRepository $productsRepository
      * @return Response
@@ -96,7 +102,7 @@ class CartController extends AbstractController
 
 
     /**
-     * @Route("/eliminate/product/productId?", name="eliminate_product")
+     * @Route("eliminate/product/productId?", name="eliminate_product")
      * @param Request $request
      * @return Response
      */
@@ -113,7 +119,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/increment/product/productId?", name="increment_product")
+     * @Route("increment/product/productId?", name="increment_product")
      * @param Request $request
      * @param ProductsRepository $productsRepository
      * @return Response
@@ -137,7 +143,7 @@ class CartController extends AbstractController
 
 
     /**
-     * @Route("/clear", name="clear_cart")
+     * @Route("clear", name="clear_cart")
      */
     public function clearCart(): Response
     {
@@ -148,7 +154,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/checkout", name="checkout")
+     * @Route("checkout", name="checkout")
      * @param Request $request
      * @param OrderItemsRepository $orderItemsRepository
      * @param OrdersRepository $ordersRepository

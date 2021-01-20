@@ -8,6 +8,11 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+
+/**
+ * Class SecurityController
+ * @Route ("eshop/", name = "")
+ **/
 class SecurityController extends AbstractController
 {
     /**

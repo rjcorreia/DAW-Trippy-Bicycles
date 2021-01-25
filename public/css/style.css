@@ -148,13 +148,21 @@ Version:1.0
 }
 
 html {
-    cursor: url("../img/cursor.cur"),auto!important;
+    cursor: url("../img/cursor.cur"), auto !important;
 }
+
 
 :hover {
-    cursor:url("../img/sym57.cur"),pointer!important;
+    cursor: url("../img/sym57.cur"), pointer !important;
 }
 
+.btn {
+    cursor: url("../img/sym57.cur"), pointer !important;
+}
+
+img {
+    cursor: url("../img/sym57.cur"), pointer !important;
+}
 
 /* Preloader */
 .preloader {
@@ -1457,7 +1465,7 @@ html {
 }
 
 .hero-slider .hero-text {
-    display:inline-block;
+    display: inline-block;
     margin-top: 100px;
 }
 
@@ -1468,8 +1476,8 @@ html {
     color: red;
     margin-bottom: 20px;
     display: inline-flex;
-    background: rgb(51,51,51);
-    padding:1rem;
+    background: rgb(51, 51, 51);
+    padding: 1rem;
 }
 
 .hero-slider .hero-text h1 span {
@@ -1493,7 +1501,7 @@ html {
 }
 
 .hero-slider .hero-text .btn {
-    color: rgb(51,51,51);
+    color: rgb(51, 51, 51);
     padding: 13px 30px;
     line-height: initial;
     border: none;

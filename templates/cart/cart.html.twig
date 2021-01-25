@@ -34,21 +34,19 @@
                                 <td class="price" data-title="Price"><span>€{{ product.price }}.00</span></td>
                                 <td class="qty" data-title="Qty"><!-- Input Order -->
                                     <div class="input-group">
-                                        <div class="button minus">
+                                        <a class="button minus" href={{ path('decrement_product',{'productId':product.id}) }}>
                                             <button type="button" class="btn">
-                                                <a class="ti-minus"
-                                                   href={{ path('decrement_product',{'productId':product.id}) }}></a>
+                                                <div class="ti-minus"> </div>
                                             </button>
-                                        </div>
+                                        </a>
                                         <input type="text" name="quant[1]" class="input-number" data-min="1"
                                                data-max="100"
                                                value="{{ cartQt[ loop.index - 1] }}">
-                                        <div class="button plus">
+                                        <a class="button plus" href={{ path('increment_product',{'productId':product.id}) }}>
                                             <button type="button" class="btn">
-                                                <a class="ti-plus"
-                                                   href={{ path('increment_product',{'productId':product.id}) }}></a>
+                                                <div class="ti-plus" ></div>
                                             </button>
-                                        </div>
+                                        </a>
                                     </div>
                                     <!--/ End Input Order -->
                                 </td>

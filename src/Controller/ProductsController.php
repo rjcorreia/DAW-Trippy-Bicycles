@@ -17,13 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductsController extends AbstractController
 {
     /**
-     * @Route("/products/{productId?}", name="Products")
+     * @Route("/products", name="Products")
      * @param ProductsRepository $productsRepository
      * @param CategoriesRepository $categoriesRepository
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request, ProductsRepository $productsRepository, CategoriesRepository $categoriesRepository)
+    public function index(ProductsRepository $productsRepository, CategoriesRepository $categoriesRepository)
     {
         $session = new Session();
         $session->start();

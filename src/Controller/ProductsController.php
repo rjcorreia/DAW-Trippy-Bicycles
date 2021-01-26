@@ -72,6 +72,10 @@ class ProductsController extends AbstractController
     {
         $session = new Session();
         $productId = $request->get('productId');
+        if (($productId < 1) || ($productId > 7)) {
+            $this->addFlash('error', 'Product does not exist in the database');
+            return $this->redirect($this->generateUrl('Products'));
+        }
         $cart = $session->get('bikeCart');
         $cart[] = $productId;
         $session->set('bikeCart', $cart);

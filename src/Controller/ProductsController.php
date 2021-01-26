@@ -28,7 +28,6 @@ class ProductsController extends AbstractController
         $session = new Session();
         $session->start();
         $info = $this->setInfo();
-        $session = new Session();
         if ($session->get('bikeCart') == null)
             $cart = [];
         else {
@@ -65,26 +64,17 @@ class ProductsController extends AbstractController
 
 
     /**
-     * @Route("/products/updatedCart/{productId?}", name="update_cart")
+     * @Route("/products/updateCart/{productId?}", name="update_cart")
      * @param Request $request
      * @return Response
      */
     function updateCart(Request $request)
     {
         $session = new Session();
-        $session->start();
-        $info = $this->setInfo();
         $productId = $request->get('productId');
-        $session = new Session();
-        if ($session->get('bikeCart') == null)
-            $cart = [];
-        else
-            $cart = $session->get('bikeCart');
-        if ($productId) {
-            array_push($cart, $productId);
-            $session->set('bikeCart', $cart);
-        }
-
+        $cart = $session->get('bikeCart');
+        $cart[] = $productId;
+        $session->set('bikeCart', $cart);
         return $this->redirect($this->generateUrl('Products'));
     }
 }

@@ -57,7 +57,8 @@
                     <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
                             {% if app.request.get('_route') == info.menu0 %}
-                                <li class="active"><a href='{{ path(info.menu0) }}'> {{ info.menu0 }} </a></li>
+                                <li class="active"><a href='{{ path(info.menu0) }}'>
+                                        <img src="" alt="">{{ info.menu0 }} </a></li>
                             {% else %}
                                 <li><a href='{{ path(info.menu0) }}'> {{ info.menu0 }} </a></li>
                             {% endif %}
@@ -66,7 +67,6 @@
                             {% else %}
                                 <li><a href='{{ path('Products') }}'> Products </a></li>
                             {% endif %}
-
                         </ul>
                     </div>
                 </div>
@@ -92,12 +92,11 @@
                             {% endif %}
                             {% if app.request.get('_route') == info.menu3 %}
                                 <li class="active"><a href='{{ path(info.menu3) }}'>
-                                        <img src={{ asset('img/cart_logo.png') }} alt="Cart"> [{{ cart|length }}]
+                                        <img src='{{ asset('img/cart_logo.png') }}' alt="Cart"> [{{ cart|length }}]
                                     </a></li>
                             {% else %}
-                                {# <li><a href='{{ path(info.menu3) }}'> {{ info.menu3 }} ({{ cart|length}})  </a></li> #}
                                 <li><a href='{{ path(info.menu3) }}'>
-                                        <img src={{ asset('img/cart_logo.png') }} alt="Cart"> [{{ cart|length }}]
+                                        <img src='{{ asset('img/cart_logo.png') }}' alt="Cart"> [{{ cart|length }}]
                                     </a></li>
                             {% endif %}
                         </ul>

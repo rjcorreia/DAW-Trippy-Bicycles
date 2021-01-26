@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-
 /**
  * Class CartController
  * @Route("/eshop", name="")
@@ -44,6 +43,7 @@ class CartController extends AbstractController
         $info = $this->setInfo();
         $session->set('cartItems', $cartItems);
         $session->set('quantities', $quantities);
+        $cartItems = $session->get('bikeCart');
         return $this->render('cart/cart.html.twig', [
             'info' => $info,
             'cart' => $cartItems,
@@ -168,33 +168,25 @@ class CartController extends AbstractController
         if ($user == NULL) {
             $this->addFlash('error', 'You must login in first before you can checkout');
             return $this->redirect($this->generateUrl('Cart'));
-        }
-        else {
-            $this->addFlash('success', 'Order made with success, you will have the ride of your life!');
-
+        } else {
+            $this->addFlash('success', 'Order made with success, we hope you will have the ride of your life!');
             $cartItems = $session->get('cartItems');
-            $cart= $session->get('bikeCart');
-            dump($cartItems);
+            $cart = $session->get('bikeCart');
             $cartItemsQt = array_count_values($cart);
-            dump($cartItemsQt);
-//            die;
             $ordersRepository->insertOrder($user);
             $orderArray = $ordersRepository->getOrderIdFromUser($user);
-//            dump($orderArray);
             $orderArray = array_reverse($orderArray);
             $lastOrder = $orderArray[0]['id'];
-//            dump($lastOrder);
             $totalAmount = 0;
-            for($i = 0; $i < count($cartItemsQt); ++$i) {
+            for ($i = 0; $i < count($cartItemsQt); ++$i) {
                 $currentProduct = $productsRepository->getProductFromId($cartItems[$i]);
                 $currentQuantity = $cartItemsQt[$cartItems[$i]];
-//                dump($currentQuantity);
                 $totalAmount += ($currentProduct->getPrice() * $currentQuantity);
-                $orderItemsRepository->insertOrderItem($ordersRepository->getFromOrderId($lastOrder),$currentProduct,$currentQuantity);
+                $orderItemsRepository->insertOrderItem($ordersRepository->getFromOrderId($lastOrder), $currentProduct, $currentQuantity);
             }
-            $ordersRepository->updateTotal($totalAmount,$lastOrder);
+            $ordersRepository->updateTotal($totalAmount, $lastOrder);
             $cart = array();
-            $session->set('bikeCart',$cart);
+            $session->set('bikeCart', $cart);
             return $this->redirect($this->generateUrl('Home'));
         }
     }

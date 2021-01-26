@@ -73,7 +73,7 @@
                 <div class="navbar-collapse">
                     <div class="nav-inner nav-title">
                         <ul class="nav main-menu menu navbar-nav">
-                            <h2 class = "text-light">Trippy Bicycles</h2>
+                            <h2 class="text-light">Trippy Bicycles</h2>
                         </ul>
                     </div>
                 </div>
@@ -91,9 +91,14 @@
                                 <li><a href='{{ path(info.menu2) }}'> {{ info.menu2 }} </a></li>
                             {% endif %}
                             {% if app.request.get('_route') == info.menu3 %}
-                                <li class="active"><a href='{{ path(info.menu3) }}'> {{ info.menu3 }} </a></li>
+                                <li class="active"><a href='{{ path(info.menu3) }}'>
+                                        <img src={{ asset('img/cart_logo.png') }} alt="Cart"> [{{ cart|length }}]
+                                    </a></li>
                             {% else %}
-                                <li><a href='{{ path(info.menu3) }}'> {{ info.menu3 }} ({{ cart|length}})  </a></li>
+                                {# <li><a href='{{ path(info.menu3) }}'> {{ info.menu3 }} ({{ cart|length}})  </a></li> #}
+                                <li><a href='{{ path(info.menu3) }}'>
+                                        <img src={{ asset('img/cart_logo.png') }} alt="Cart"> [{{ cart|length }}]
+                                    </a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -147,7 +152,8 @@
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="right">
-                            <p> Designed by Ricardo Correia a64007 <br> 'Nūllum magnum ingenium sine mixtūrā dēmentiae fuit'</p>
+                            <p> Designed by Ricardo Correia a64007 <br> 'Nūllum magnum ingenium sine mixtūrā dēmentiae
+                                fuit'</p>
                         </div>
                     </div>
                 </div>

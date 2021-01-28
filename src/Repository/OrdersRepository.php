@@ -78,6 +78,9 @@ class OrdersRepository extends ServiceEntityRepository
             return '';
         }
     }
+
+
+
     function getOrderIdValueFromUser($uid)
     {
         $query = $this->getEntityManager()->createQuery('SELECT o.id FROM App:Orders o WHERE IDENTITY(o.user) = ?1');

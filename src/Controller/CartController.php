@@ -75,7 +75,7 @@ class CartController extends AbstractController
 
 
     /**
-     * @Route("decrement/product/productId?", name="decrement_product")
+     * @Route("/cart/decrement/product/productId?", name="decrement_product")
      * @param Request $request
      * @param ProductsRepository $productsRepository
      * @return Response
@@ -102,7 +102,7 @@ class CartController extends AbstractController
 
 
     /**
-     * @Route("eliminate/product/productId?", name="eliminate_product")
+     * @Route("/cart/eliminate/product/productId?", name="eliminate_product")
      * @param Request $request
      * @return Response
      */
@@ -119,7 +119,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("increment/product/productId?", name="increment_product")
+     * @Route("/cart/increment/product/productId?", name="increment_product")
      * @param Request $request
      * @param ProductsRepository $productsRepository
      * @return Response
@@ -143,7 +143,7 @@ class CartController extends AbstractController
 
 
     /**
-     * @Route("clear", name="clear_cart")
+     * @Route("/cart/clear", name="clear_cart")
      */
     public function clearCart(): Response
     {
@@ -154,7 +154,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("checkout", name="checkout")
+     * @Route("/cart/checkout", name="checkout")
      * @param Request $request
      * @param OrderItemsRepository $orderItemsRepository
      * @param OrdersRepository $ordersRepository
@@ -185,8 +185,7 @@ class CartController extends AbstractController
                 $orderItemsRepository->insertOrderItem($ordersRepository->getFromOrderId($lastOrder), $currentProduct, $currentQuantity);
             }
             $ordersRepository->updateTotal($totalAmount, $lastOrder);
-            $cart = array();
-            $session->set('bikeCart', $cart);
+            $session->set('bikeCart', array());
             return $this->redirect($this->generateUrl('Home'));
         }
     }
